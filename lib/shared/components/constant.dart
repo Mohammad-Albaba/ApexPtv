@@ -1,8 +1,8 @@
 
 import 'package:video_player/video_player.dart';
 
-String token = '';
-String uId = '';
+String? token;
+String? uId;
 
 String printFullText(String text) {
   final pattern = RegExp('.{1,800}');
@@ -11,4 +11,4 @@ String printFullText(String text) {
 }
 final urlLandscapeVideo =
     'http://aromatv.co:80/series/aroma-it4k/Yst88773kkh/197432.mp4';
-VideoPlayerController controller;
+late VideoPlayerController controller;

@@ -8,13 +8,15 @@ Widget defaultButton({
   Color background = Colors.blue ,
   bool isUpperCase = true,
   double radius = 0.0,
-  @required Function function,
-  @required String text,
+  required Function function,
+  required String text,
 }) =>  Container(
   width: width,
   height: 50.0,
   child: MaterialButton(
-    onPressed: function,
+    onPressed: (){
+      function();
+    },
     child: Text(
       isUpperCase ? text.toUpperCase() : text,
       style: TextStyle(
@@ -33,38 +35,49 @@ Widget defaultButton({
 );
 
 Widget defaultTextButton({
-  @required Function function,
-  @required String text,
+  required Function function,
+  required String text,
 }) =>
-    TextButton(onPressed: function,
+    TextButton(
+      onPressed: (){
+        function();
+      },
       child: Text(
         text.toUpperCase(),
       ),
     );
 
 Widget defaultFormField({
-  TextEditingController controller,
-  @required TextInputType type,
-  Function onSubmit,
-  Function onChange,
-  Function onTap,
+  required TextEditingController controller,
+  required TextInputType type,
+  Function? onSubmit,
+  Function? onChange,
+  Function? onTap,
   bool isClickable = true,
   bool isPassword = false,
-  @required Function validate,
-  @required String label,
-  String hint,
-   IconData prefix,
-  IconData suffix,
-  Function suffixPressed,
+  required Function validate,
+  required String label,
+  String? hint,
+   IconData? prefix,
+  IconData? suffix,
+  Function? suffixPressed,
 }) =>  TextFormField(
   controller: controller,
   keyboardType: type,
   obscureText: isPassword,
-  onFieldSubmitted: onSubmit,
-  onChanged: onChange,
-  onTap: onTap,
+  onFieldSubmitted: (s){
+    onSubmit!(s);
+  },
+  onChanged: (s){
+    onChange!(s);
+  },
+  onTap: (){
+    onTap!();
+  },
   enabled: isClickable,
-  validator: validate,
+  validator: (s){
+    validate(s);
+  },
   decoration: InputDecoration(
     labelStyle: TextStyle(
       fontSize: 16.0,
@@ -76,7 +89,9 @@ Widget defaultFormField({
       prefix,
     ),
     suffixIcon: suffix != null ? IconButton(
-        onPressed: suffixPressed,
+        onPressed: (){
+          suffixPressed!();
+        },
         icon: Icon(
           suffix,
         )
@@ -102,8 +117,8 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
     }
 );
 void showToast({
-  @required String text,
-  @required ToastStates state,
+  required String text,
+  required ToastStates state,
 }) => Fluttertoast.showToast(
     msg: text,
     toastLength: Toast.LENGTH_LONG,
@@ -140,11 +155,11 @@ Widget myDivider() => Container(
 );
 
 Widget defaultAppBar({
-  @required BuildContext context,
-  String title,
-  List<Widget> actions,
-  AppBarTheme theme,
-  Color backgroundColor,
+  required BuildContext context,
+  String? title,
+  List<Widget>? actions,
+  AppBarTheme? theme,
+  Color? backgroundColor,
 }) => AppBar(
   centerTitle: true,
   backgroundColor: backgroundColor,
@@ -158,20 +173,22 @@ Widget defaultAppBar({
   ),
    titleSpacing: 90.0,
   title: Text(
-    title,
+    title??'',
     textAlign: TextAlign.center,
   ),
   actions: actions,
 );
 
 Widget defaultCheckBox({
-  @required Function onChange,
-  @required String title,
+  required Function onChange,
+  required String title,
   bool isCheckbox = false,
 
 }) => CheckboxListTile(
     controlAffinity: ListTileControlAffinity.leading,
     title: Text(title),
     value: isCheckbox,
-    onChanged: onChange,
+    onChanged: (s){
+      onChange(s);
+    },
   );

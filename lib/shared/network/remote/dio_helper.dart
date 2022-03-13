@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class DioHelper {
-  static Dio dio;
+  static late Dio dio;
 
   static init() {
     dio = Dio(
@@ -17,10 +17,10 @@ class DioHelper {
   }
 
   static Future<Response> getData({
-    @required String url,
-    Map<String, dynamic> query,
+    required String url,
+    Map<String, dynamic>? query,
     String lang = 'en',
-    String token,
+    String? token,
   }) async {
     dio.options.headers = {
       'accept': 'application/json',
@@ -34,11 +34,11 @@ class DioHelper {
   }
 
   static Future<Response> postData({
-    @required String url,
-    @required Map<String, dynamic> data,
-    Map<String, dynamic> query,
+    required String url,
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? query,
     String lang = 'ar',
-    String token,
+    String? token,
   }) async {
     dio.options.headers = {
       'accept': 'application/json',
@@ -53,11 +53,11 @@ class DioHelper {
   }
 
   static Future<Response> postOrder({
-    @required String url,
-    @required FormData data,
-    Map<String, dynamic> query,
+    required String url,
+    required FormData data,
+    Map<String, dynamic>? query,
     String lang = 'en',
-    String token,
+    String? token,
   }) async {
     dio.options.headers = {
       'accept': 'application/json',
@@ -72,11 +72,11 @@ class DioHelper {
   }
 
   static Future<Response> putData({
-    @required String url,
-    @required Map<String, dynamic> data,
-    Map<String, dynamic> query,
+    required String url,
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? query,
     String lang = 'en',
-    String token,
+    String? token,
   }) async {
     dio.options.headers = {
       'accept': 'application/json',
